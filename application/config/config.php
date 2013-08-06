@@ -15,7 +15,7 @@
 |
 */
 // $config['base_url']	= 'http://localhost/webtv';
-$config['base_url']	= 'http://localhost/WebTV/';
+$config['base_url']	= 'http://webtvoncloud.herokuapp.com/';
 
 /*
 |--------------------------------------------------------------------------

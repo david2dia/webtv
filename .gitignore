@@ -9,6 +9,8 @@ ClientBin/
 *.[Pp]ublish.xml
 *.pfx
 *.publishsettings
+application/logs/
+application/config/
 
 # Backup & report files from converting an old project file to a newer
 # Visual Studio version. Backup files are not needed, because we have git ;-)
@@ -37,3 +39,10 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+
+
+#############
+## FEDE
+#############
+
+application/simplesaml/
