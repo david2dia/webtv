@@ -85,10 +85,10 @@ CREATE TABLE pages (
 --
 
 INSERT INTO groupes (idgroupe, nom) VALUES
-(DEFAULT, 'Test'),
+(DEFAULT, 'Test');
 
 INSERT INTO chaines (idchaine, nom, idgroupe, description, logo, responsable, responsablemail) VALUES
-(DEFAULT, 'Test', '1','', '', 'Responsable', 'mailde@oxylane.com'),
+(DEFAULT, 'Test', '1','', '', 'Responsable', 'mailde@oxylane.com');
 
 
 INSERT INTO types (idtype, genre, label) VALUES
