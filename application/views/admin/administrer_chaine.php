@@ -79,3 +79,4 @@
 			<input type="submit" class="btn" value="Add Page" />
 		</div>
 	</form>
+<?= $this->load->view("admin/bandeau"); ?>

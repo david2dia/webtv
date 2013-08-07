@@ -7,6 +7,7 @@ class Welcome extends CI_Controller {
 	{
 		//	Obligatoire
 		parent::__construct();
+		
 		//	Chargement des ressources pour tout le contrôleur
 		$this->load->database();
 		$this->load->helper('form');

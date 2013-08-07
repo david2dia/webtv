@@ -8,7 +8,29 @@ class Admin extends CI_Controller
 	{
 		//	Obligatoire
 		parent::__construct();
-		
+		$this->data = array();
+
+		// System FED Oxylane
+	if (FEDACTIVE) {
+		require(__DIR__.'/../simplesaml/lib/_autoload.php');
+		$as = new SimpleSAML_Auth_Simple('Oxylane-sp');
+		$isAuth = $as->isAuthenticated();
+		if (!$isAuth) {
+			$as->requireAuth();
+		} else {
+			$attributes = $as->getAttributes();
+			$this->data['fed']['0'] = $attributes['uid'][0]; //identifiant
+			$this->data['fed']['1'] = $attributes['cn'][0]; //nom de la personne
+			$this->data['fed']['2'] = $attributes['mail'][0]; //mail de la personne
+		}
+	} else {
+		$this->data['fed']['0'] = "ID";
+		$this->data['fed']['1'] = "NOM";
+		$this->data['fed']['2'] = "MAIL";
+	}
+		// END FED
+
+
 		//	Chargement des ressources pour tout le contrôleur
 		$this->load->database();
 		$this->load->helper('form');
@@ -18,13 +40,12 @@ class Admin extends CI_Controller
 		$this->load->library('form_validation');
 
 		$this->load->model('pages_model', 'pm');
-		$this->load->model('bandeau_model', 'bm');
 		$this->load->model('plannings_model', 'plm');
 		$this->load->model('types_model', 'tm');
 		$this->load->model('chaines_model', 'cm');
 		$this->load->model('groupes_model', 'gm');
-
-		$this->data = array();
+		$this->load->model('bandeau_model', 'bm');
+		if(FEDLOG) $this->load->model('logs_model', 'lm');
 
 		// Récupération de toute les chaines
 		$this->data['chaines'] = $this->cm->getAll();
@@ -43,18 +64,26 @@ class Admin extends CI_Controller
 	}
 
 
-	public function voir_chaine($chainepam=''){
+	public function voir_chaine($id='',$chainepam=''){
 		//require_once('http://localhost/simplesaml/lib/_autoload.php');
 		//$this->load->library('simplesaml/lib/_autoload');
 		//$auth = new SimpleSAML_Auth_Simple('default-sp');
 		//echo $auth->isAuthenticated();
-
 		$chaine = (integer)$this->input->post('num_chaines');
 		if($chainepam!=null) $chaine = (integer)$chainepam;
+
+		//$this->data['chaines'] = array();
+/*		if($id != null){
+			$id = (integer)$id;
+			$this->data['groupes'] = $this->gm->getChild($id);
+			$this->data['chaines'] = $this->cm->getAllByGroupe($id);
+		} else $this->data['groupes'] = $this->gm->getAllParent();*/
+
 		// Si on a séléctionné une chaine on affiche le formulaire
 		// Sinon on affiche que les chaines
 		if ($chaine != null && $this->cm->verifChaine($chaine)==1){
 			$id = ($chainepam!=null) ? $chainepam : $this->input->post('num_chaines');
+			$this->data['chaines'] = $this->cm->getAll();
 
     		// on ajoute le numero de la chaine, les infos de la chaine
 			$this->data['numChaines'] = $id;
@@ -64,7 +93,6 @@ class Admin extends CI_Controller
 			$this->data['tempssequence'] = $this->pm->getTempsSequence($id);
 			// Récupération de toute les pages
 			$this->data['pages'] = $this->pm->getAllByChaine($id);
-
 
 			$this->template->set('title', 'Add Page - '.$this->data['infos'][0]->nom);
 			$this->template->load('templates/template', 'admin/ajouter_page', $this->data);
@@ -121,7 +149,7 @@ class Admin extends CI_Controller
 			if ($timefin==null) $timefin = '23:59';
 			$hebdo = '1;2;3;4;5;6;7';
 			
-			//	Sauvegarde de la page dans la base de données
+			//Sauvegarde de la page dans la base de données
 			$this->pm->add($this->input->post('titre'),
 				$this->input->post('url'),
 				$temps,
@@ -131,8 +159,12 @@ class Admin extends CI_Controller
 				$timefin,
 				$hebdo,
 				$this->input->post('chaine'),
-				$public
+				$public,
+				$this->data['fed']['1']
 				);
+
+			//Ajout du Log
+			if(FEDLOG) $this->lm->add("Ajout","Page",$this->input->post('url')." sur ".$this->input->post('chaine'));
 
 
 			
@@ -175,19 +207,24 @@ class Admin extends CI_Controller
 				$this->input->post('url'),
 				$temps,
 				$this->input->post('chaine'),
-				$public
+				$public,
+				$this->data['fed']['1']
 				);
-			
+
+			//Ajout du Log
+			if(FEDLOG) $this->lm->add("Ajout_Lite","Page",$this->input->post('url')." sur ".$this->input->post('chaine'));
 			
 			//	Affichage de la confirmation
 			$this->template->set('title', 'Confirmation');
 			$this->data['confirmation'] = '<div class="alert alert-success fade in"><button type="button" class="close" data-dismiss="alert">×</button><strong>Sucessfully added</strong><br />Url : '.$this->input->post('url').'</div>';
 			$this->form_validation->clear_field_data();
-			$this->voir_chaine($this->input->post('chaine'));
+			$this->voir_chaine(0,$this->input->post('chaine'));
+			//redirect('admin/voir_chaine/'.$this->input->post('chaine'), 'refresh');
 		}
 		else
 		{
-			$this->voir_chaine($this->input->post('chaine'));
+			$this->voir_chaine(0,$this->input->post('chaine'));
+			//redirect('admin/voir_chaine/'.$this->input->post('chaine'), 'refresh');
 		}
 
 	}
@@ -219,8 +256,8 @@ class Admin extends CI_Controller
 			//SPECIFIQUE PSQL
 			$parents = $this->gm->getParentsId($id);
 			//SPECIFIQUE PSQL
-    		$chaines = $this->cm->getAllByMultiGroupe($parents);
-    		$groupe = $this->gm->get($id);
+    			$chaines = $this->cm->getAllByMultiGroupe($parents);
+    			$groupe = $this->gm->get($id);
 
     		//on verifie les valeurs et init si necesaire.
 			$public = ($this->input->post('public') == 'on') ? 'true' : 'false';
@@ -246,9 +283,13 @@ class Admin extends CI_Controller
 					$timefin,
 					$hebdo,
 					$chaine->idchaine,
-					$public
+					$public,
+					$this->data['fed']['1']
 					);
 			}
+
+				//Ajout du Log
+				if(FEDLOG) $this->lm->add("Ajout_Multiple","Page",$this->input->post('url'));
 
 
 			
@@ -267,11 +308,10 @@ class Admin extends CI_Controller
 
 	}
 
-
-		public function ajoutBandeau()
+	public function ajoutBandeau()
 	{
-		$this->form_validation->set_rules('titremessage', '"titremessage"', 'trim|required|xss_clean|prep_url');
-		$this->form_validation->set_rules('message', '"message"', 'trim|required|xss_clean|prep_url');
+		$this->form_validation->set_rules('titremessage', '"titremessage"', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('message', '"message"', 'trim|required|xss_clean');
 		$this->form_validation->set_rules('chaine', '"Chaine"', 'trim|numeric|required|is_natural_no_zero|xss_clean');
 		if($this->form_validation->run())
 		{
@@ -294,7 +334,6 @@ class Admin extends CI_Controller
 		{
 			$this->edition($this->input->post('chaine'));
 		}
-
 	}
 
 	/**
@@ -311,6 +350,7 @@ class Admin extends CI_Controller
 
     		// Récupération de toute les pages
 			$this->data['pages'] = $this->pm->getAllByChaine($id);
+
 			// Récupération du bandeau
 			$this->data['bandeaus'] = $this->bm->getAllByChaine($id);
 
@@ -384,8 +424,12 @@ class Admin extends CI_Controller
 				$timefin,
 				$idplanning,
 				$this->input->post('chaine'),
-				$public
+				$public,
+				$this->data['fed']['1']
 				);
+
+			//Ajout du Log
+			if(FEDLOG) $this->lm->add("Update","Page", $this->input->post('url')." sur ".$this->input->post('chaine'));
 
 
 			
@@ -410,9 +454,12 @@ class Admin extends CI_Controller
 	{
 		//	Suprimer la page
 		$idplanning = $this->pm->get($page);
+		$url = $idplanning[0]->url;
 		$idplanning = $idplanning[0]->idplanning;
 		$this->pm->delete($page);
-		if($idplanning!=1) $this->plm->delete($idplanning[0]->idplanning);
+		//Ajout du Log
+		if(FEDLOG) $this->lm->add("Delete","Page", $url." sur ".$numChaine);
+		if($idplanning!=1) $this->plm->delete($idplanning);
 		$page = $this->pm->getAllByChaine($numChaine);
 		$order=0;
 		foreach($page as $idPage )
@@ -420,7 +467,8 @@ class Admin extends CI_Controller
 			$order+=1;
     		$this->pm->setOrdre($idPage->idpage,$order);
 		}
-		$this->edition($numChaine);
+		//$this->edition($numChaine);
+		redirect('admin/edition/'.$numChaine, 'refresh');
 	}
 
 	public function deletebandeau($message,$numChaine)
@@ -430,9 +478,6 @@ class Admin extends CI_Controller
 		$bandeaus = $this->bm->getAllByChaine($numChaine);
 		$this->edition($numChaine);
 	}
-
-
-	
 
 	/**
 	*	Méthode qui va enregistrer l'ordre des page en base

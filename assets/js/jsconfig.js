@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	var content=document.getElementById('slidesContainer');
 
-//console.log(page.length);
+	console.log(page.length);
 	if (page.length!=0){
 
 
@@ -12,7 +12,8 @@ $(document).ready(function(){
 		var tempsTransition = 2000;
 		var slideWidth = screen.width;
 		var slides = $('.slide');
-
+		var hauteur = window.innerHeight;
+		hauteur = hauteur
 
 		createPage(content, page[currentPosition][3], page[currentPosition][1], page[currentPosition][0]);
 
@@ -22,18 +23,18 @@ $(document).ready(function(){
 	  	//Définition des tailles en fonction du navigateur
 	  	$('#slidesContainer').css({
 	  		'width': window.innerWidth,
-	  		'height': window.innerHeight
+	  		'height': hauteur
 	  	});
 
 
 	  	$('#slideshow').css({
 	  		'width': window.innerWidth,
-	  		'height': window.innerHeight
+	  		'height': hauteur
 	  	});
 
 	  	$('#slide').css({
 	  		'width': window.innerWidth,
-	  		'height': window.innerHeight
+	  		'height': hauteur
 	  	});
 
 
@@ -50,7 +51,7 @@ $(document).ready(function(){
 
 // Mise en place d'une fonction passant au slide suivant
     function suivant(){
-    	//console.log('delete');
+    	console.log('delete');
     	document.getElementById('slidesContainer').removeChild(document.getElementById('slide'));
 
     	if (currentPosition < page.length-1){
@@ -59,12 +60,12 @@ $(document).ready(function(){
     		currentPosition=0;
     		window.location.reload();
     	}
-    	//console.log(currentPosition);
+    	console.log(currentPosition);
     	createPage(content, page[currentPosition][3], page[currentPosition][1], page[currentPosition][0]);
 
     	$('#slide').css({
 	  		'width': window.innerWidth,
-	  		'height': window.innerHeight
+	  		'height': hauteur
 	  	});
 
 	  	console.log(page[currentPosition][2]);
@@ -92,7 +93,7 @@ $(document).ready(function(){
    			ifrm.setAttribute("src", src); 
    			ifrm.setAttribute("id", id); 
    			ifrm.setAttribute("width", window.innerWidth); 
-   			ifrm.setAttribute("height", window.innerHeight);
+   			ifrm.setAttribute("height", hauteur);
    			ifrm.setAttribute("frameborder", "0");
    			ifrm.setAttribute("allowfullscreen", "true");   
    			ifrm.setAttribute("mozallowfullscreen", "true");   
@@ -106,7 +107,7 @@ $(document).ready(function(){
 			object.data = src;
 			object.type = "application/x-shockwave-flash";
 			object.width=window.innerWidth;
-			object.height=window.innerHeight;
+			object.height=hauteur;
 
 			container.appendChild(object);
 		}

@@ -20,6 +20,10 @@
 				<input type="url" class="span6" id="urllogo" name="urllogo" placeholder="Url Logo">		
 				<div class="help-block hide"></div>
 			</div>
+			<div class="span5">
+			 <label class="checkbox inline pull-left"><input type="checkbox" id="activelogo" name="activelogo" value="on"> View logo of Channel</label>
+			 <label class="checkbox inline pull-right"><input type="checkbox" id="activeband" name="activeband" value="on"> View Strip of Channel</label>
+			</div>
 		</fieldset>
 		<input class="btn btn-large btn-success pull-right" type="submit" value="Add" />
 	</form>

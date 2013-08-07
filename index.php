@@ -18,7 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'testing');
+	define('ENVIRONMENT', 'production');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -200,20 +200,6 @@ if (defined('ENVIRONMENT'))
  *
  */
 require_once BASEPATH.'core/CodeIgniter.php';
-
-
-
-/*
- * --------------------------------------------------------------------
- * COMPIL LESS to CSS
- * --------------------------------------------------------------------
- *
- * 
- *
- */
-
-/*$less = new lessc;*/
-/*$less->checkedCompile(less_url('public'), css_url('style2'));*/
 
 /* End of file index.php */
 /* Location: ./index.php */

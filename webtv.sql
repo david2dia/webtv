@@ -36,6 +36,8 @@ CREATE TABLE chaines (
 	logo			text,
 	responsable		text,
 	responsablemail	text,
+	activelogo 		boolean 	NOT NULL DEFAULT false,
+	activeband 		boolean 	NOT NULL DEFAULT false,
 
 	PRIMARY KEY (idchaine),
 	FOREIGN KEY (idgroupe) REFERENCES groupes(idgroupe)
@@ -70,6 +72,7 @@ CREATE TABLE pages (
 	ordre			integer 	NOT NULL,
 	idplanning 		integer 	DEFAULT '1' NOT NULL,
 	public 			bool 		DEFAULT false NOT NULL,
+	auteur			text		NOT NULL,
 	datemodif		Date		NOT NULL,
 	dateenr			Date		NOT NULL,
 
@@ -79,6 +82,29 @@ CREATE TABLE pages (
 	FOREIGN KEY (idplanning) REFERENCES plannings(idplanning) ON DELETE SET DEFAULT
 );
 
+CREATE TABLE bandeau
+(
+  idbandeau serial NOT NULL,
+  idchaine integer,
+  titremessage text,
+  message text,
+  ordre integer,
+  PRIMARY KEY (idbandeau),
+  FOREIGN KEY (idchaine) REFERENCES chaines (idchaine)
+);
+
+CREATE TABLE Logs (
+	idlogs  		serial,
+	action			text 		NOT NULL,
+	type			text 		NOT NULL,
+	detail			text 		NOT NULL,
+	feduid			text		NOT NULL,
+	nom 			text 		NOT NULL,
+	mail			text 		NOT NULL,
+	date			Date		NOT NULL,
+
+	PRIMARY KEY (idlogs)
+);
 
 --
 -- Contenu des tables

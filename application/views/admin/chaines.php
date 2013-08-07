@@ -1,3 +1,21 @@
+<div class="span12 hide <?= isset($numChaines) ? 'hide' : ''; ?> offset1 text-center">
+	<div id="icone" class="row mt35">
+		<?php foreach($chaines as $chaine): ?>
+			<div class="span3 mt35 text-center vr" id="chaine_<?= $chaine->idchaine ?>">
+				<a href="<?= site_url('admin/voir_chaine/1/'.$chaine->idchaine); ?>">
+					<?php if (empty($chaine->logo)) echo tagimg('chaines.png', 'logo'); else echo '<img src="'.$chaine->logo.'" alt="logo">'; ?><br /><?= $chaine->nom; ?>
+				</a>
+			</div>
+		<?php endforeach; ?>
+		<?php if (isset($groupes)): foreach($groupes as $groupe): ?>
+			<div class="span3 mt35 text-center vr" id="chaine_<?= $groupe->idgroupe ?>">
+				<a href="<?= site_url('admin/voir_chaine/'.$groupe->idgroupe); ?>">
+					<?php if (empty($groupe->logo)) echo tagimg('multiChaines.png', 'logo'); else echo '<img src="'.$groupe->logo.'" alt="logo">'; ?><br /><?= $groupe->nom; ?>
+				</a>
+			</div>
+		<?php endforeach; endif; ?>
+	</div>
+</div>
 <div class="row-fluid">
 	<div class="<?= isset($numChaines) ? 'span3' : 'span9'; ?> offset1 text-center">
 		<div id="image"><?= tagimg('retro-tv.png', 'retro-tv', 150, 132); ?></div>
@@ -20,7 +38,7 @@
 		<?php if (!isset($edition)): ?>
 		<a href="<?= site_url('admin/edition/'.$numChaines); ?>" class="btn btn-large btn-danger btn-block">More options</a>
 		<?php else: ?>
-		<a href="<?= site_url('admin/voir_chaine/'.$numChaines); ?>" class="btn btn-large btn-danger btn-block">Retour</a>
+		<a href="<?= site_url('admin/voir_chaine/0/'.$numChaines); ?>" class="btn btn-large btn-danger btn-block">Retour</a>
 		<?php endif; endif; ?>
 	</div>
 </div>

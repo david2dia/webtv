@@ -1,5 +1,14 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Convert Lien Helper
+ * Return lien formaté
+ *
+ * @author 		David D
+ * @copyright 	Copyright (c) 2013, David D, Oxylane
+ * @version 	1.0.0
+ */
+
 if ( ! function_exists('detectUrl'))
 {	
 	/* 

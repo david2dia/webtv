@@ -81,10 +81,13 @@ class Chaines_model extends CI_Model
 	 *	Ajout d'une Chaine
 	 *	
 	 *	@param string  $nom				nom de la chaine
+	  *	@param int  $responsable 		id du groupe
 	 *	@param string  $description		description de la chaine
-	 *	@param string  $responsable 	id du responsable
+	  *	@param string  $responsable 	url du logo
+	 *	@param string  $responsable 	nom du responsable
+	  *	@param bool  $responsable 		logo afficher
 	 */
-	public function add($nom, $idgroupe, $description, $logo, $responsable)
+	public function add($nom, $idgroupe, $description, $logo, $responsable, $activelogo, $activeband)
 	{
 		if ($logo =='') $logo = NULL;
 		if ($description=='') $description = NULL;
@@ -94,6 +97,8 @@ class Chaines_model extends CI_Model
 				    				'description' => $description,
 				    				'logo' => $logo,
 				    				'responsable' => $responsable,
+				    				'activelogo' => $activelogo,
+				    				'activelogo' => $activeband,
 				    				))
 						->insert($this->table);
 	}
@@ -112,7 +117,7 @@ class Chaines_model extends CI_Model
 	}
 
 
-	public function update($idchaine, $nom, $idgroupe, $description, $logo, $responsable)
+	public function update($idchaine, $nom, $idgroupe, $description, $logo, $responsable, $activelogo, $activeband)
 	{
 		if ($logo =='') $logo = NULL;
 		if ($description=='') $description = NULL;
@@ -122,6 +127,8 @@ class Chaines_model extends CI_Model
 				    				'description' => $description,
 				    				'logo' => $logo,
 				    				'responsable' => $responsable,
+				    				'activelogo' => $activelogo,
+				    				'activeband' => $activeband,
 				    				))
 						->where($this->tableid, $idchaine)
 						->update($this->table);

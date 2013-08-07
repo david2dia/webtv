@@ -4,8 +4,8 @@
  * Tab php to Js
  * Return un tab js
  *
- * @author 		David Dias <david.dias@oxylane.com>
- * @copyright 	Copyright (c) 2013, David Dias, Oxylane
+ * @author      David D
+ * @copyright   Copyright (c) 2013, David D, Oxylane
  * @version 	1.0.0
  */
 
