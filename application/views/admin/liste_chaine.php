@@ -26,7 +26,8 @@
 								<a href="<?= site_url('admin/delete/'.$page->idpage.'/'.$page->idchaine); ?>" data-rel="tooltip" data-original-title="Delete" class="tooltipb"><i class="icon-trash"></i></a>
 								<a href="<?= site_url('admin/update/'.$page->idpage.'/'.$page->idchaine); ?>" data-rel="tooltip" data-original-title="Update" class="tooltipb"><i class="icon-pencil"></i></a>
 								<i class="icon-time" id="helphour_<?= $page->idpage; ?>" data-toggle="popover" data-placement="right" data-html="true" data-content="From <?= $page->datedebut; ?> To <?= $page->datefin; ?><br>From <?= $page->timedebut; ?> To <?= $page->timefin; ?>" data-original-title="Timing" onmouseover="$('#'+this.id).popover('show')" onmouseout="$('#'+this.id).popover('hide')"></i>
-								<a rel="tooltip" id="tooltip" href='<?= $page->url; ?>' data-rel="tooltip" data-original-title="Show" class="tooltipb" target='_blank'><i class="icon-eye-open"></i></a>
+								<a rel="tooltip" id="tooltip" href="<?= $page->url; ?>" data-rel="tooltip" data-original-title="Show" class="tooltipb" target='_blank'><i class="icon-eye-open"></i></a>
+								<a rel="tooltip" id="tooltip" data-rel="tooltip" data-original-title="<?= $page->auteur; ?>" class="tooltipb"><i class="icon-user"></i></a>
 							</td>
 						</tr>
 						<?php endforeach; ?>

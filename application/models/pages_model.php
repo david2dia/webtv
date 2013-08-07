@@ -56,20 +56,6 @@ class Pages_model extends CI_Model
 					->result();	
 	}
 
-
-	/**
-	* Récupération des pages valide
-	* @return tableau de chaines
-	*/
-	public function getAll()
-	{
-	return $this->db->select('*')
-					->from($this->table)
-					->order_by("ordre", "asc")
-					->get()
-					->result();
-	}
-
 	/**
 	 *	Ajout d'une page
 	 *	
@@ -87,7 +73,7 @@ class Pages_model extends CI_Model
 	 */
 
 	
-	public function add($titre, $url, $temps, $date_debut, $date_fin, $temps_debut, $temps_fin, $hebdo, $chaine, $public)
+	public function add($titre, $url, $temps, $date_debut, $date_fin, $temps_debut, $temps_fin, $hebdo, $chaine, $public, $auteur)
 	{
 		$type = getUrlPartage($url);
 		$url = $type[0];
@@ -108,6 +94,7 @@ class Pages_model extends CI_Model
 				    				'idchaine' => $chaine,
 				    				'idtype' => $type,
 				    				'public' => $public,
+				    				'auteur' => $auteur,
 				    				))
 						->set('idpage', 'Default', false)
 						->set('datemodif', 'NOW()', false)
@@ -115,7 +102,7 @@ class Pages_model extends CI_Model
 						->insert($this->table);
 	}
 
-	public function addLite($url, $temps, $chaine, $public)
+	public function addLite($url, $temps, $chaine, $public, $auteur)
 	{
 		/** Vérifier les données */
 
@@ -134,6 +121,7 @@ class Pages_model extends CI_Model
 				    				'idtype' => $type,
 				    				'idchaine' => $chaine,
 				    				'public' => $public,
+				    				'auteur' => $auteur,
 				    				))
 						->set('idpage', 'Default', false)
 						->set('idplanning', 'Default', false)
@@ -144,7 +132,7 @@ class Pages_model extends CI_Model
 	}
 
 
-	public function update($idpage,$titre, $url, $temps, $date_debut, $date_fin, $temps_debut, $temps_fin, $idplanning, $chaine, $public)
+	public function update($idpage,$titre, $url, $temps, $date_debut, $date_fin, $temps_debut, $temps_fin, $idplanning, $chaine, $public, $auteur)
 	{
 		if ($idplanning==1) {
 			$this->plm->add($date_debut, $date_fin, $temps_debut, $temps_fin, NULL);
@@ -161,6 +149,7 @@ class Pages_model extends CI_Model
 				    				'idplanning' => $id,
 				    				'idchaine' => $chaine,
 				    				'public' => $public,
+				    				'auteur' => $auteur,
 				    				))
 						->set('datemodif', 'NOW()', false)
 						->where($this->tableid, $idpage)

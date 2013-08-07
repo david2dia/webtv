@@ -15,7 +15,7 @@
 |
 */
 // $config['base_url']	= 'http://localhost/webtv';
-$config['base_url']	= 'http://webtvoncloud.herokuapp.com/';
+$config['base_url']	= 'http://localhost/WebTV-FED/';
 
 /*
 |--------------------------------------------------------------------------
@@ -247,14 +247,15 @@ $config['encryption_key'] = 'toto';
 |
 */
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= 17200;
+$config['sess_expiration']		= 7200;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;
 $config['sess_table_name']		= 'ci_sessions';
 $config['sess_match_ip']		= FALSE;
-$config['sess_match_useragent']	= FALSE;
+$config['sess_match_useragent']	= TRUE;
 $config['sess_time_to_update']	= 300;
+
 /*
 |--------------------------------------------------------------------------
 | Cookie Related Variables
@@ -280,7 +281,7 @@ $config['cookie_secure']	= FALSE;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = TRUE;
+$config['global_xss_filtering'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -316,7 +317,7 @@ $config['csrf_expire'] = 7200;
 | by the output class.  Do not 'echo' any values with compression enabled.
 |
 */
-$config['compress_output'] = TRUE;
+$config['compress_output'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------

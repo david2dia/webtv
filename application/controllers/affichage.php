@@ -14,9 +14,9 @@ class Affichage extends CI_Controller
 		$this->load->helper('tabphptojs');
 
 		$this->load->model('pages_model', 'pm');
-		$this->load->model('bandeau_model', 'bm');
 		$this->load->model('types_model', 'tm');
 		$this->load->model('chaines_model', 'cm');
+		$this->load->model('bandeau_model', 'bm');
 
 		$this->data = array();
 
@@ -54,7 +54,6 @@ class Affichage extends CI_Controller
 		        $ind++;
 			}
 			$this->data['pages'] = php2js($pagesjs);
-
     		$this->load->view('iframe', $this->data);
 /*    		$this->template->load('templates/template', 'iframe', $this->data);*/
     	}else{
@@ -62,6 +61,7 @@ class Affichage extends CI_Controller
     	}
 	}
 
+	//Cadeau
 	public function tisaniere(){
     		$pages = $this->pm->getAll();
 			
@@ -76,3 +76,5 @@ class Affichage extends CI_Controller
 	}
 
 }
+
+?>

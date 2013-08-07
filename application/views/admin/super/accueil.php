@@ -18,6 +18,7 @@
 				<li><a href="#updategroupe" data-toggle="tab">Update/Delete</a></li>
 			</ul>
 		</li>
+		<li class="dropdown"><a href="#log" data-toggle="tab">Logs</a></li>
 		<li class="dropdown hide"> 
 			<a class="dropdown-toggle" data-toggle="dropdown" href="#">Multi Channels<b class="caret"></b></a>
 			<ul class="dropdown-menu">
@@ -41,5 +42,6 @@
 		<div class="tab-pane" id="updategroupe"><?= $this->load->view("admin/super/groupe"); ?></div>
 		<div class="tab-pane" id="addmultichannel"><?= $this->load->view("admin/super/addchannel"); ?></div>
 		<div class="tab-pane" id="updatemultichannel"><?= $this->load->view("admin/super/addchannel"); ?></div>
+		<div class="tab-pane" id="log"><?= $this->load->view("admin/super/log"); ?></div>
 	</div>
 </div>
