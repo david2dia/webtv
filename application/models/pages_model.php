@@ -105,8 +105,8 @@ class Pages_model extends CI_Model
 	public function addLite($url, $temps, $chaine, $public, $auteur)
 	{
 		/** Vérifier les données */
-
-		$titre = get_file_title($url);
+		$this->load->helper('text');
+		$titre = convert_accented_characters(get_file_title($url));
 		$type = getUrlPartage($url);
 		$url = $type[0];
 		$type = $type[1];

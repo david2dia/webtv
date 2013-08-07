@@ -1,3 +1,4 @@
+<?php $this->load->helper('text');  ?>
 	<fieldset>
 		<p>
 			<legend id="legend">Pages Of Channel</legend>
@@ -17,10 +18,10 @@
 					<div id="loader" class="hide"></div>
 					<tbody id="tabsort">
 						<?php foreach($pages as $page): ?>
-						<?php $valide=true; if ($page->datedebut>mdate("%Y-%m-%d", time()) OR $page->datefin<=mdate("%Y-%m-%d", time()) OR $page->timedebut >= mdate("%H:%i:%s", time()) OR $page->timefin <= mdate("%H:%i:%s", time())) $valide=false; ?>
+						<?php $valide=true; if ($page->datedebut>mdate("%Y-%m-%d", time()) OR $page->datefin<mdate("%Y-%m-%d", time()) OR ($page->timedebut >= mdate("%H:%i:%s", time()) OR $page->timefin <= mdate("%H:%i:%s", time()))) $valide=false; ?>
 						<tr id="page_<?= $page->idpage; ?>" <?php if(!$valide) echo 'class="text-error"' ?>>
 							<td class='dragHandle' style="cursor: move"><?= $page->ordre; ?></td> 
-							<td><?php if(!$valide) echo '<strong>' ?><?= $page->titre; ?><?php if(!$valide) echo '</strong>' ?></td>
+							<td><?php if(!$valide) echo '<strong>' ?><?= character_limiter($page->titre,90); ?><?php if(!$valide) echo '</strong>' ?></td>
 							<td><?= $page->temps; ?> s</td>
 							<td>
 								<a href="<?= site_url('admin/delete/'.$page->idpage.'/'.$page->idchaine); ?>" data-rel="tooltip" data-original-title="Delete" class="tooltipb"><i class="icon-trash"></i></a>
