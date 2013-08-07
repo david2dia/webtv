@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
-// $config['base_url']	= 'http://localhost/webtv';
-$config['base_url']	= 'http://localhost/WebTV-FED/';
+ //$config['base_url']	= 'http://localhost/webtv';
+$config['base_url']	= 'http://webtvoncloud.herokuapp.com/';
 
 /*
 |--------------------------------------------------------------------------
@@ -281,7 +281,7 @@ $config['cookie_secure']	= FALSE;
 | COOKIE data is encountered
 |
 */
-$config['global_xss_filtering'] = FALSE;
+$config['global_xss_filtering'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
