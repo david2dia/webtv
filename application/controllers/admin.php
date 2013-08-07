@@ -408,8 +408,8 @@ class Admin extends CI_Controller
 			$timefin = $this->input->post('time_fin');
 			if ($datedeb==null) $datedeb = mdate("%Y-%m-%d", time());
 			if ($datefin==null) $datefin = mdate("%Y-%m-%d", strtotime('+1 years'));
-			if ($timedeb==null) $timedeb = '23:59';
-			if ($timefin==null) $timefin = '00:01';
+			if ($timedeb==null) $timedeb = '00:01';
+			if ($timefin==null) $timefin = '23:59';
 			$idplanning = $this->data['page'][0]->idplanning;
 			
 			//	Sauvegarde de la page dans la base de données
@@ -468,7 +468,7 @@ class Admin extends CI_Controller
     		$this->pm->setOrdre($idPage->idpage,$order);
 		}
 		//$this->edition($numChaine);
-		redirect('admin/edition/'.$numChaine, 'refresh');
+		redirect('admin/edition/'.$numChaine);
 	}
 
 	public function deletebandeau($message,$numChaine)
