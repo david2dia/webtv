@@ -37,5 +37,23 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
+/*
+|--------------------------------------------------------------------------
+| CONSTANTE PERSO
+|--------------------------------------------------------------------------
+|
+| contante federation
+| TRUE Activer / FALSE Desactiver
+*/
+define('FEDACTIVE', FALSE);
+#define('FEDACTIVE',	TRUE);
+
+define('FEDLOG', FALSE);
+#define('FEDLOG', TRUE);
+
+/* NOMBRES DE JOURS AFFICHE POUR LES LOGS SUPER ADMIN */
+define('TIMELOG',	'30');
+
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

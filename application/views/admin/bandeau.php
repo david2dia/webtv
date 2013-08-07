@@ -31,8 +31,8 @@
 		</p>
 	</fieldset>
 <form action="<?= site_url('admin/ajoutbandeau') ?>" method="post">
-<input type="text" class="input-large" name="titremessage" id="titremessage" TABINDEX="1" placeholder="Enter Title of Message" required="required" />
-<input type="text" class="input-xxlarge" name="message" id="message" TABINDEX="" placeholder="Enter Message" required="required" />
+<input type="text" class="input-large" name="titremessage" id="titremessage" maxlength="10" TABINDEX="1" placeholder="Enter Title of Message" required="required" />
+<input type="text" class="input-xxlarge" name="message" id="message" TABINDEX="2" maxlength="70" placeholder="Enter Message" required="required" />
 <input type="hidden" name="chaine" id="chaine" value="<?= $numChaines ?>" />
 <input type="submit" class="btn" value="Add Message" />
 </form>

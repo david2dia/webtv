@@ -8,6 +8,39 @@ class Superadmin extends CI_Controller
 	{
 		//	Obligatoire
 		parent::__construct();
+		$this->data = array();
+
+		// System FED Oxylane
+	if (FEDACTIVE) {
+		require(__DIR__.'/../simplesaml/lib/_autoload.php');
+		$as = new SimpleSAML_Auth_Simple('Oxylane-sp');
+		$isAuth = $as->isAuthenticated();
+		
+		$url = $as->getLoginURL();
+		if (!$isAuth) {
+			//$url = $as->getLoginURL();
+			//echo '<p>You are not authenticated. <a href="' . htmlspecialchars($url) . '">Log in</a>.</p>';
+			$as->requireAuth();
+		} else {
+			//$url = $as->getLogoutURL();
+			//echo '<p>You are currently authenticated. <a href="' . htmlspecialchars($url) . '">Log out</a>.</p>';
+
+			$attributes = $as->getAttributes();
+			$uid = $attributes['uid'][0];
+			$this->data['fed']['0'] = $uid;
+			$this->data['fed']['1'] = $attributes['cn'][0];
+			$this->data['fed']['2'] = $attributes['mail'][0];
+			if($uid!='MDELOB06'&&$uid!='MRAKZA21'&&$uid!='Z18JVIGN') {
+				echo "Utilisateur non autoris&eacute;s";
+				redirect('welcome', 'refresh');
+			}
+		}
+	} else {
+		$this->data['fed']['0'] = "ID";
+		$this->data['fed']['1'] = "NOM";
+		$this->data['fed']['2'] = "MAIL";
+	}
+		// END System FED Oxylane
 		
 		//	Chargement des ressources pour tout le contrôleur
 		$this->load->database();
@@ -18,8 +51,8 @@ class Superadmin extends CI_Controller
 		$this->load->model('pages_model', 'pm');
 		$this->load->model('chaines_model', 'cm');
 		$this->load->model('groupes_model', 'gm');
+		$this->load->model('logs_model', 'lm');
 
-		$this->data = array();
 	}
 
 	/**
@@ -32,15 +65,15 @@ class Superadmin extends CI_Controller
 		$this->data['responsables'] = $this->cm->getAllResponsables();
 		$this->data['channels'] = $this->cm->getAll();
 		$this->data['groupes'] = $this->gm->getAll();
-    	$this->accueil();
+		$this->data['logs'] = $this->lm->getAll();
+    		
+		$this->accueil();
 	}
 
 
 	public function accueil(){
 
     		$this->template->set('title', 'Super Admin');
-    		//$this->template->set('nav_list', array('Channel', 'Responsable', 'Multichannel'));
-    		//$this->template->set('nav', '/');
     		$this->template->load('templates/template', 'admin/super/accueil', $this->data);
 	}
 
@@ -57,7 +90,8 @@ class Superadmin extends CI_Controller
 		$this->form_validation->set_rules('nom',  '"Name"',  'required');
 		$this->form_validation->set_rules('description',  '"Description"',  'min_length[2]');
 		$this->form_validation->set_rules('groupe', 'Groupe', 'required|is_natural_no_zero');
-
+		$activelogo = ($this->input->post('activelogo') == 'on') ? 'true' : 'false';
+		$activeband = ($this->input->post('activeband') == 'on') ? 'true' : 'false';
 		if($this->form_validation->run())
 		{
 			//	Nous disposons d'une page sous une bonne forme
@@ -66,7 +100,9 @@ class Superadmin extends CI_Controller
 			 						$this->input->post('groupe'),
 			 					   	$this->input->post('description'),
 			 					   	$this->input->post('urllogo'),
-			 					    $this->input->post('responsable')
+			 					    $this->input->post('responsable'),
+			 					    $activelogo,
+			 					    $activeband
 			 					   );
 
 			 //Actualise les formulaires
@@ -94,6 +130,7 @@ class Superadmin extends CI_Controller
 		
 		//	Mise en place des règles de validation du formulaire
 		$this->form_validation->set_rules('channel',  '"channel"',  'required|is_natural_no_zero');
+
 		if($this->form_validation->run())
 		{
 			if($this->input->post('submit')=="Delete") {
@@ -127,6 +164,8 @@ class Superadmin extends CI_Controller
 		//	Mise en place des règles de validation du formulaire
 		$this->form_validation->set_rules('nom',  '"Nom"',  'required');
 		$this->form_validation->set_rules('groupe', 'Groupe', 'required|is_natural_no_zero');
+		$activelogo = ($this->input->post('activelogo') == 'on') ? 'true' : 'false';
+		$activeband = ($this->input->post('activeband') == 'on') ? 'true' : 'false';
 
 		if($this->form_validation->run())
 		{
@@ -137,7 +176,9 @@ class Superadmin extends CI_Controller
 			 						$this->input->post('groupe'),
 			 					   	$this->input->post('description'),
 			 					   	$this->input->post('urllogo'),
-			 					    $this->input->post('responsable')
+			 					    $this->input->post('responsable'),
+			 					    $activelogo,
+			 					    $activeband
 			 					   );
 
 			 	//	Affichage de la confirmation

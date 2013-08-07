@@ -6,6 +6,8 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=<?= $this->config->item('charset'); ?>" />
 		<meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" type="text/css" media="screen" href="<?= css_url('style'); ?>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?= css_url('bootstrap.min'); ?>" />
+		<link rel="stylesheet" type="text/css" media="screen" href="<?= css_url('bootstrap-responsive.min'); ?>" />
 		<link rel="stylesheet" type="text/css" media="screen" href="<?= css_url('datepicker'); ?>" />
 		<link rel="stylesheet" type="text/css" media="screen" href="<?= css_url('chosen'); ?>" />
 		<!--[if lte IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--> 
@@ -17,6 +19,9 @@
 					<div class="container">
 						<ul class="nav">
 							<li><a class="brand" href="<?= site_url() ?>">WebTV</a></li>
+							<?php if (isset($fed)): ?>
+							<li class="brand pull-right">- Bonjour <?= $fed[1] ?></li>
+							<?php endif; ?>
 							<?php if (isset($nav_list) && $nav_list!=''): ?>
 								<?php foreach($nav_list as $i => $nav_item): ?>	
 									<li class="<?= ($nav == $nav_item ? 'active' : '')?>">
@@ -54,8 +59,8 @@
 	================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<!-- 	<script src="<?= js_url('jquery-1.7.2.min'); ?>"></script> -->
 	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.min.js"></script>
-<!-- 	<script src="<?= js_url('jquery-1.7.2.min'); ?>"></script> -->
 	<script src="<?= js_url('chosen.jquery.min'); ?>"></script>
 	<script src="<?= js_url('bootstrap.min'); ?>"></script>
 	<script src="<?= js_url('bootstrap-datepicker'); ?>"></script>

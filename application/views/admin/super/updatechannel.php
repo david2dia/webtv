@@ -20,6 +20,11 @@
 				<input type="url" class="span6" id="urllogo" name="urllogo" placeholder="Url Logo" value="<?= $channel[0]->logo ?>">		
 				<div class="help-block hide"></div>
 			</div>
+			<div class="span5">
+			<label class="checkbox pull-left"><input type="checkbox" id="activelogo" name="activelogo" value="on" <?php if($channel[0]->activelogo=="t") echo "checked='checked'" ?>> View logo of Channel</label>
+			 <label class="checkbox inline pull-right"><input type="checkbox" id="activeband" name="activeband" value="on" <?php if($channel[0]->activeband=="t") echo "checked='checked'" ?>> View Strip of Channel</label>
+			</div>
+			
 		</fieldset>
 		<input type="hidden" id="idchaine" name="idchaine" value="<?= $channel[0]->idchaine ?>">	
 		<input class="btn btn-large btn-success pull-right" type="submit" value="Update" />
