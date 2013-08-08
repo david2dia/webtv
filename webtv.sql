@@ -78,9 +78,11 @@ CREATE TABLE pages (
 
 	PRIMARY KEY (idPage),
 	FOREIGN KEY (idType) REFERENCES Types(idType),
-	FOREIGN KEY (idChaine) REFERENCES Chaines(idChaine),
+	FOREIGN KEY (idChaine) REFERENCES Chaines(idChaine) ON DELETE CASCADE,
 	FOREIGN KEY (idplanning) REFERENCES plannings(idplanning) ON DELETE SET DEFAULT
 );
+
+
 
 CREATE TABLE bandeau
 (
@@ -90,7 +92,7 @@ CREATE TABLE bandeau
   message text,
   ordre integer,
   PRIMARY KEY (idbandeau),
-  FOREIGN KEY (idchaine) REFERENCES chaines (idchaine)
+  FOREIGN KEY (idchaine) REFERENCES chaines (idchaine) ON DELETE CASCADE
 );
 
 CREATE TABLE Logs (
@@ -114,7 +116,7 @@ INSERT INTO groupes (idgroupe, nom) VALUES
 (DEFAULT, 'Test');
 
 INSERT INTO chaines (idchaine, nom, idgroupe, description, logo, responsable, responsablemail) VALUES
-(DEFAULT, 'Test', '1','', '', 'Responsable', 'mailde@oxylane.com');
+(DEFAULT, 'Channel 1', '1','', '', 'You', 'mail');
 
 
 INSERT INTO types (idtype, genre, label) VALUES
