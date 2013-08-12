@@ -106,7 +106,7 @@ class Pages_model extends CI_Model
 	{
 		/** Vérifier les données */
 		$this->load->helper('text');
-		$titre = convert_accented_characters(get_file_title($url));
+		$titre = utf8_encode(get_file_title($url));
 		$type = getUrlPartage($url);
 		$url = $type[0];
 		$type = $type[1];
