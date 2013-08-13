@@ -46,8 +46,7 @@
 						Powered by IT Pole Interactif - In case of problems with WebTV, please contact Mohamed Rakza (
 						<?= safe_mailto('mohamed.rakza@oxylane.com','mohamed.rakza@oxylane.com'); ?>)
 					</p>
-					<a href="https://sites.google.com/a/oxylane.com/webtv/" target="_blank"><?= tagimg('qrcode.png', 'Qr Code', '100', '100') ?></a>
-
+					<a href="https://sites.google.com/a/oxylane.com/webtv/" target="_blank"><?= tagimg('qrcode.png', 'Qr Code', '100', '100') ?><br />WebTv Help</a>
 				</div>
 				<blockquote class="pull-right mt35">
   					<p>Ensemble, créer l'envie et rendre accessibles à chacun le plaisir et les bienfaits du sport.</p>

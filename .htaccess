@@ -10,7 +10,7 @@ RewriteEngine on
 #
 
 #   Toutes les URL qui ne correspondent pas ‡ ces masques sont rÈÈcrites.
-RewriteCond $1 !^(index\.php|assets/|application/simplesaml/|robots\.txt)
+RewriteCond $1 !^(index\.php|assets/|robots\.txt)
 
 #   Toutes les autres URL vont Ítre redirigÈes vers le fichier index.php.
 RewriteRule ^(.*)$ index.php/$1 [L]
