@@ -35,17 +35,17 @@
 			</div>
 			<div class="control-group">
 				<label class="control-label" class="control-label" for="date_debut">From :</label>
-				<div class="controls">
-					<input type="date" class="input-xxlarge" name="date_debut" id="date_debut" TABINDEX="4" min="<?= mdate("%Y-%m-%d", time()); ?>" placeholder="<?= mdate("%Y-%m-%d", time()); ?>" value="<?= set_value('date_debut'); ?>" />
-					<?= form_error('date_debut'); ?>
-				</div>
+					<div class="controls">
+						<input type="date" class="input-xxlarge" data-date="<?= mdate("%Y-%m-%d", time()); ?>" data-date-format="yyyy-mm-dd" name="date_debut" id="date_debut" TABINDEX="4"  min="<?= mdate("%Y-%m-%d", time()); ?>" placeholder="<?= mdate("%Y-%m-%d", time()); ?>" value="<?= set_value('date_debut'); ?>" />
+						<?= form_error('date_debut'); ?>
+					</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="date_fin">To :</label>
-				<div class="controls">
-					<input type="date" class="input-xxlarge" name="date_fin" id="date_fin" TABINDEX="5" min="<?= mdate("%Y-%m-%d", time()); ?>" placeholder="<?= mdate("%Y-%m-%d", strtotime('+1 years')); ?>" value="<?= set_value('date_fin'); ?>" />
-					<?= form_error('date_fin'); ?>
-				</div>
+					<label class="control-label" for="date_fin">To :</label>
+					<div class="controls">
+						<input type="date" class="input-xxlarge" data-date="<?= mdate("%Y-%m-%d", time()); ?>" data-date-format="yyyy-mm-dd" name="date_fin" id="date_fin" TABINDEX="5" class="datep" min="<?= mdate("%Y-%m-%d", time()); ?>" placeholder="<?= mdate("%Y-%m-%d", strtotime('+1 years')); ?>" value="<?= set_value('date_fin'); ?>" />
+						<?= form_error('date_fin'); ?>
+					</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="time_debut">Starts at :</label>
