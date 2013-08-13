@@ -14,8 +14,8 @@
 | path to your installation.
 |
 */
- //$config['base_url']	= 'http://localhost/webtv';
-$config['base_url']	= 'http://webtvoncloud.herokuapp.com/';
+ $config['base_url']	= 'http://localhost/github/webtv/';
+//$config['base_url']	= 'http://webtvoncloud.herokuapp.com/';
 
 /*
 |--------------------------------------------------------------------------

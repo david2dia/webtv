@@ -30,7 +30,10 @@ class Superadmin extends CI_Controller
 			$this->data['fed']['0'] = $uid;
 			$this->data['fed']['1'] = $attributes['cn'][0];
 			$this->data['fed']['2'] = $attributes['mail'][0];
-			if($uid!='MDELOB06'&&$uid!='MRAKZA21'&&$uid!='Z18JVIGN') {
+
+			$this->load->model('admins_model', 'am');
+			$admins = $this->am->getAll();
+			if(!$this->in_array_column($uid, $admins)) {
 				echo "Utilisateur non autoris&eacute;s";
 				redirect('welcome', 'refresh');
 			}
@@ -66,15 +69,15 @@ class Superadmin extends CI_Controller
 		$this->data['channels'] = $this->cm->getAll();
 		$this->data['groupes'] = $this->gm->getAll();
 		$this->data['logs'] = $this->lm->getAll();
-    		
+    	
 		$this->accueil();
 	}
 
 
 	public function accueil(){
-
-    		$this->template->set('title', 'Super Admin');
-    		$this->template->load('templates/template', 'admin/super/accueil', $this->data);
+		$this->load->model('admins_model', 'am');
+    	$this->template->set('title', 'Super Admin');
+    	$this->template->load('templates/template', 'admin/super/accueil', $this->data);
 	}
 
 
@@ -342,6 +345,17 @@ class Superadmin extends CI_Controller
 
 		}
 
+	}
+
+	private function in_array_column($text, $array){
+		if (!empty($array) && is_array($array))
+		{
+			for ($i=0; $i < count($array); $i++)
+			{
+				if ($array[$i]->uid==$text) return true;
+			}
+		}
+		return false;
 	}
 
 }

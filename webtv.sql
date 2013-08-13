@@ -108,6 +108,13 @@ CREATE TABLE Logs (
 	PRIMARY KEY (idlogs)
 );
 
+CREATE TABLE Admins (
+	idadmin  		serial,
+	uid				text 		NOT NULL,
+	
+	PRIMARY KEY (idadmin)
+);
+
 --
 -- Contenu des tables
 --
